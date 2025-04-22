@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { HomeIcon, BookOpenIcon, ChartBarIcon, ArrowRightOnRectangleIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/auth';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -40,8 +41,8 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="bg-white shadow-lg">
-            <div className="max-w-7xl mx-auto px-4">
+        <nav className="bg-white shadow-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
@@ -63,23 +64,23 @@ export default function Navbar() {
                                     Home
                                 </Link>
                                 <Link
-                                    href="/flashcards"
-                                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                                        isActive('/flashcards')
-                                            ? 'border-blue-500 text-gray-900'
+                                    href="/admin/flashcards"
+                                    className={`${
+                                        pathname.startsWith('/admin/flashcards')
+                                            ? 'border-indigo-500 text-gray-900'
                                             : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                                    }`}
+                                    } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
                                 >
                                     <BookOpenIcon className="h-5 w-5 mr-1" />
-                                    Flashcards
+                                    Flashcard Sets
                                 </Link>
                                 <Link
                                     href="/dashboard"
-                                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                                        isActive('/dashboard')
-                                            ? 'border-blue-500 text-gray-900'
+                                    className={`${
+                                        pathname === '/dashboard'
+                                            ? 'border-indigo-500 text-gray-900'
                                             : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                                    }`}
+                                    } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
                                 >
                                     <ChartBarIcon className="h-5 w-5 mr-1" />
                                     Dashboard
